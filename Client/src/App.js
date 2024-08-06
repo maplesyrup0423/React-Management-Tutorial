@@ -29,21 +29,8 @@ const StyledCircularProgress = styled(CircularProgress)(({ theme }) => ({
 //실질적인 웹사이트 화면에 대한 내용 출력
 
 function App() {
-  /*state ={
-    customers:""
-  }
 
-  ComponentDidMount(){
-    this.callApi()
-    .then(res => this.setState({customers:res}))
-    .catch(err => console.log(err));
-  }
-  callApi = async () =>{
-    const response = await fetch('/api/customers');
-    const body = await response.json();
-    return body;
-  }*/
-  const [customers, setCustomers] = useState("");
+  const [customers, setCustomers] = useState([]);
   const [completed, setCompleted] = useState(0);
   const theme = useTheme();
 
@@ -101,7 +88,6 @@ function App() {
               <TableCell colSpan="6" align="center">
                 <StyledCircularProgress
                   variant="indeterminate"
-                  value={completed}
                 />
               </TableCell>
             </TableRow>
@@ -113,3 +99,4 @@ function App() {
 }
 
 export default App;
+
