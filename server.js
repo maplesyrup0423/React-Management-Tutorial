@@ -38,4 +38,4 @@ app.get("/api/customers", (req, res) => {
 
 app.listen(port, () => console.log(`서버 동작중 ${port}`));
 
-//http://localhost:5000/api/hello
+//http://localhost:5000/api/customers
