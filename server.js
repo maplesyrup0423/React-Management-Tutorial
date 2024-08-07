@@ -20,6 +20,9 @@ const conn = mysql.createConnection({
 });
 conn.connect();
 
+const multer = require('multer')
+const upload =multer({dest:'./upload'})
+
 app.get("/api/customers", (req, res) => {
   conn.query(
     "SELECT * FROM customer",
@@ -29,6 +32,25 @@ app.get("/api/customers", (req, res) => {
   );
 });
 
+app.use('/image',express.static('./upload'));
+
+app.post('/api/customers',upload.single('image'),(req,res)=>{
+  let sql ='INSERT INTO customer VALUES (null,?,?,?,?,?)';
+  let image = 'http://localhost:5000/image/' + req.file.filename
+  let name = req.body.name;
+  let birthday = req.body.birthday;
+  let gender = req.body.gender;
+  let job = req.body.job;
+  let params =[image,name,birthday,gender,job];
+  conn.query(sql, params, (err, rows, fields) => {
+    if (err) {
+      console.error("Error inserting customer", err);
+      res.status(500).send("Database error");
+      return;
+    }
+    res.send(rows);
+  });
+});
 app.listen(port, () => console.log(`서버 동작중 ${port}`));
 
 //http://localhost:5000/api/customers
