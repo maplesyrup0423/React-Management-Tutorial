@@ -91,12 +91,13 @@ function App() {
               customers.map((c) => (
                 <Customer
                   key={c.id} // map 을 사용하려면 key 라는 속성이 있어야 함(안하면 Console창에 에러가 발생)
-                  id={c.id}
+                  /*id={c.id}
                   image={c.image}
                   name={c.name}
                   birthday={c.birthday}
                   gender={c.gender}
-                  job={c.job}
+                  job={c.job}*/
+                  {...c}
                 />
               ))
             ) : (
