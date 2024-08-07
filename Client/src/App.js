@@ -34,6 +34,8 @@ function App() {
   const [completed, setCompleted] = useState(0);
   const theme = useTheme();
 
+
+
   useEffect(() => {
     const callApi = async () => {
       const response = await fetch("/api/customers");
@@ -56,7 +58,20 @@ function App() {
       clearInterval(timer);
     };
   }, []);
+  const stateRefresh = () => {
+    setCustomers("");
+    setCompleted(0);
+    const callApi = async () => {
+      const response = await fetch("/api/customers");
+      const body = await response.json();
+      return body;
+    };
 
+    callApi()
+      .then((res) => setCustomers(res))
+      .catch((err) => console.log(err));
+   
+  };
   return (
     <div>
       <StyledPaper>
@@ -94,9 +109,9 @@ function App() {
           </TableBody>
         </StyledTable>
       </StyledPaper>
-      <CustomerAdd/>
+      <CustomerAdd stateRefresh={stateRefresh}/>
+     
     </div>
-
   );
 }
 
