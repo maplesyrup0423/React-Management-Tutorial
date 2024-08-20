@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 function CustomerAdd({ stateRefresh }) {
   const [file, setFile] = useState(null);
-  const [name, setName] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [gender, setGender] = useState('');
-  const [job, setJob] = useState('');
-  const [fileName, setFileName] = useState('');
+  const [name, setName] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [gender, setGender] = useState("");
+  const [job, setJob] = useState("");
+  const [fileName, setFileName] = useState("");
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]); // 하나의 파일만
@@ -17,16 +17,16 @@ function CustomerAdd({ stateRefresh }) {
   const handleValueChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
-      case 'name':
+      case "name":
         setName(value);
         break;
-      case 'birthday':
+      case "birthday":
         setBirthday(value);
         break;
-      case 'gender':
+      case "gender":
         setGender(value);
         break;
-      case 'job':
+      case "job":
         setJob(value);
         break;
       default:
@@ -44,38 +44,38 @@ function CustomerAdd({ stateRefresh }) {
       }
       // 상태를 리셋합니다.
       setFile(null);
-      setName('');
-      setBirthday('');
-      setGender('');
-      setJob('');
-      setFileName('');
+      setName("");
+      setBirthday("");
+      setGender("");
+      setJob("");
+      setFileName("");
     } catch (error) {
-      console.error('고객 추가 실패:', error);
+      console.error("고객 추가 실패:", error);
     }
   };
 
   const addCustomer = () => {
-    const url = '/api/customers';
+    const url = "/api/customers";
     const formData = new FormData();
-    formData.append('image', file);
-    formData.append('name', name);
-    formData.append('birthday', birthday);
-    formData.append('gender', gender);
-    formData.append('job', job);
-    
+    formData.append("image", file);
+    formData.append("name", name);
+    formData.append("birthday", birthday);
+    formData.append("gender", gender);
+    formData.append("job", job);
+
     const config = {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     };
-    
+
     return axios.post(url, formData, config);
   };
 
   return (
     <form onSubmit={handleFromSubmit}>
       <h1>고객 추가</h1>
-      프로필 이미지 :{' '}
+      프로필 이미지 :{" "}
       <input
         type="file"
         name="file"
@@ -84,7 +84,7 @@ function CustomerAdd({ stateRefresh }) {
         onChange={handleFileChange}
       />
       <br />
-      이름 :{' '}
+      이름 :{" "}
       <input
         type="text"
         name="name"
@@ -92,7 +92,7 @@ function CustomerAdd({ stateRefresh }) {
         onChange={handleValueChange}
       />
       <br />
-      생년월일 :{' '}
+      생년월일 :{" "}
       <input
         type="text"
         name="birthday"
@@ -100,7 +100,7 @@ function CustomerAdd({ stateRefresh }) {
         onChange={handleValueChange}
       />
       <br />
-      성별 :{' '}
+      성별 :{" "}
       <input
         type="text"
         name="gender"
@@ -108,13 +108,8 @@ function CustomerAdd({ stateRefresh }) {
         onChange={handleValueChange}
       />
       <br />
-      직업 :{' '}
-      <input
-        type="text"
-        name="job"
-        value={job}
-        onChange={handleValueChange}
-      />
+      직업 :{" "}
+      <input type="text" name="job" value={job} onChange={handleValueChange} />
       <br />
       <button type="submit">추가하기</button>
     </form>
